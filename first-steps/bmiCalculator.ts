@@ -17,9 +17,14 @@ const getBmiCategory = (bmi: number): string => {
   return 'Obesity III';
 };
 
-try {
-  const { height, weight } = parseBmiArguments(process.argv);
-  console.log(calculateBmi(height, weight));
-} catch (e) {
-  console.error('Error:', e instanceof Error ? e.message : 'Unexpected error');
+if (require.main === module) {
+  try {
+    const { height, weight } = parseBmiArguments(process.argv);
+    console.log(calculateBmi(height, weight));
+  } catch (e) {
+    console.error(
+      'Error:',
+      e instanceof Error ? e.message : 'Unexpected error',
+    );
+  }
 }
