@@ -1,8 +1,9 @@
 import { ExerciseResult, Rating } from './types';
+import { parseExerciseArguments } from './utils';
 
 export const calculateExercises = (
-  dailyHours: number[],
   target: number,
+  dailyHours: number[],
 ): ExerciseResult => {
   const periodLength = dailyHours.length;
   const trainingDays = calculateTrainingDays(dailyHours);
@@ -42,4 +43,9 @@ const getRating = (average: number, target: number): Rating => {
   return { value: 1, description: 'You need to work harder.' };
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+try {
+  const { target, dailyHours } = parseExerciseArguments(process.argv);
+  console.log(calculateExercises(target, dailyHours));
+} catch (e) {
+  console.error('Error:', e instanceof Error ? e.message : 'Unexpected error');
+}

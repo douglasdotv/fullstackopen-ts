@@ -1,3 +1,5 @@
+import { parseBmiArguments } from './utils';
+
 export const calculateBmi = (height: number, weight: number): string => {
   const heightInMeters = height / 100;
   const bmi = weight / heightInMeters ** 2;
@@ -15,4 +17,9 @@ const getBmiCategory = (bmi: number): string => {
   return 'Obesity III';
 };
 
-console.log(calculateBmi(180, 74));
+try {
+  const { height, weight } = parseBmiArguments(process.argv);
+  console.log(calculateBmi(height, weight));
+} catch (e) {
+  console.error('Error:', e instanceof Error ? e.message : 'Unexpected error');
+}
