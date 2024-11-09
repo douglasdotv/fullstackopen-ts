@@ -1,4 +1,5 @@
 import { Patient } from '../src/types/Patient';
+import { Gender } from '../src/types/Gender';
 
 const data: Patient[] = [
   {
@@ -6,7 +7,7 @@ const data: Patient[] = [
     name: 'John McClane',
     dateOfBirth: '1986-07-09',
     ssn: '090786-122X',
-    gender: 'Male',
+    gender: Gender.Male,
     occupation: 'New York City cop',
   },
   {
@@ -14,7 +15,7 @@ const data: Patient[] = [
     name: 'Martin Riggs',
     dateOfBirth: '1979-01-30',
     ssn: '300179-77A',
-    gender: 'Male',
+    gender: Gender.Male,
     occupation: 'Cop',
   },
   {
@@ -22,7 +23,7 @@ const data: Patient[] = [
     name: 'Hans Gruber',
     dateOfBirth: '1970-04-25',
     ssn: '250470-555L',
-    gender: 'Other',
+    gender: Gender.Other,
     occupation: 'Technician',
   },
   {
@@ -30,7 +31,7 @@ const data: Patient[] = [
     name: 'Dana Scully',
     dateOfBirth: '1974-01-05',
     ssn: '050174-432N',
-    gender: 'Female',
+    gender: Gender.Female,
     occupation: 'Forensic pathologist',
   },
   {
@@ -38,7 +39,7 @@ const data: Patient[] = [
     name: 'Matti Luukkainen',
     dateOfBirth: '1971-04-09',
     ssn: '090471-8890',
-    gender: 'Male',
+    gender: Gender.Male,
     occupation: 'Digital evangelist',
   },
 ];
