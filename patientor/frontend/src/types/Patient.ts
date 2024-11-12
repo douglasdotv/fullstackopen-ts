@@ -1,4 +1,5 @@
 import { Gender } from './Gender';
+import { PatientEntry } from './PatientEntry';
 
 export interface Patient {
   id: string;
@@ -7,6 +8,7 @@ export interface Patient {
   gender: Gender;
   ssn?: string;
   dateOfBirth?: string;
+  entries: PatientEntry[];
 }
 
 export type PatientFormValues = Omit<Patient, 'id' | 'entries'>;

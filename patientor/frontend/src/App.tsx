@@ -6,6 +6,7 @@ import { apiBaseUrl } from './constants';
 import { Patient } from './types/Patient';
 import patientService from './services/patientService';
 import PatientListPage from './components/PatientListPage/PatientListPage';
+import PatientDetailPage from './components/PatientDetailPage/PatientDetailPage';
 
 const App = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -42,6 +43,7 @@ const App = () => {
                 />
               }
             />
+            <Route path="/patients/:id" element={<PatientDetailPage />} />
           </Routes>
         </Container>
       </Router>
