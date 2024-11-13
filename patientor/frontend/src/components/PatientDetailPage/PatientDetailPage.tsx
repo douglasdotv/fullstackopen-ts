@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Patient } from '../../types/Patient';
 import patientService from '../../services/patientService';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, List, ListItem } from '@mui/material';
 import GenderIcon from './GenderIcon';
 
 const PatientDetailPage = () => {
@@ -66,6 +66,27 @@ const PatientDetailPage = () => {
       <Typography>Date of Birth: {patient.dateOfBirth}</Typography>
       <Typography>SSN: {patient.ssn}</Typography>
       <Typography>Occupation: {patient.occupation}</Typography>
+      <Typography variant="h6" component="h3" style={{ marginTop: '1em' }}>
+        Entries
+      </Typography>
+      <List>
+        {patient.entries?.map((entry) => (
+          <ListItem key={entry.id} style={{ marginBottom: '1em' }}>
+            <Box>
+              <Typography variant="body1">
+                {entry.date} - <i>{entry.description}</i>
+              </Typography>
+              {entry.diagnosisCodes && (
+                <ul>
+                  {entry.diagnosisCodes.map((code) => (
+                    <li key={code}>{code}</li>
+                  ))}
+                </ul>
+              )}
+            </Box>
+          </ListItem>
+        ))}
+      </List>
     </Box>
   );
 };
