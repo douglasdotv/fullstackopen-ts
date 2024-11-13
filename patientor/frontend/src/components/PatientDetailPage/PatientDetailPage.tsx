@@ -5,6 +5,7 @@ import { Patient } from '../../types/Patient';
 import { Diagnosis } from '../../types/Diagnosis';
 import patientService from '../../services/patientService';
 import { Typography, Box, List, ListItem } from '@mui/material';
+import PatientEntryDisplay from './PatientEntryDisplay';
 import GenderIcon from './GenderIcon';
 
 type PatientDetailPageProps = {
@@ -63,11 +64,6 @@ const PatientDetailPage = ({ diagnoses }: PatientDetailPageProps) => {
     return <div>Loading...</div>;
   }
 
-  const getDiagnosisDescription = (code: string): string | undefined => {
-    const diagnosis = diagnoses.find((d) => d.code === code);
-    return diagnosis ? diagnosis.name : 'Unknown diagnosis';
-  };
-
   return (
     <Box>
       <Typography variant="h4" component="h2">
@@ -81,21 +77,12 @@ const PatientDetailPage = ({ diagnoses }: PatientDetailPageProps) => {
       </Typography>
       <List>
         {patient.entries?.map((entry) => (
-          <ListItem key={entry.id} style={{ marginBottom: '1em' }}>
-            <Box>
-              <Typography variant="body1">
-                {entry.date} - <i>{entry.description}</i>
-              </Typography>
-              {entry.diagnosisCodes && (
-                <ul>
-                  {entry.diagnosisCodes.map((code) => (
-                    <li key={code}>
-                      {code}: {getDiagnosisDescription(code)}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </Box>
+          <ListItem key={entry.id}>
+            {diagnoses ? (
+              <PatientEntryDisplay entry={entry} diagnoses={diagnoses} />
+            ) : (
+              <Typography>Loading...</Typography>
+            )}
           </ListItem>
         ))}
       </List>
