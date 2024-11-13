@@ -2,11 +2,16 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Patient } from '../../types/Patient';
+import { Diagnosis } from '../../types/Diagnosis';
 import patientService from '../../services/patientService';
 import { Typography, Box, List, ListItem } from '@mui/material';
 import GenderIcon from './GenderIcon';
 
-const PatientDetailPage = () => {
+type PatientDetailPageProps = {
+  diagnoses: Diagnosis[];
+};
+
+const PatientDetailPage = ({ diagnoses }: PatientDetailPageProps) => {
   const { id } = useParams();
 
   const [patient, setPatient] = useState<Patient | null>(null);
@@ -58,6 +63,11 @@ const PatientDetailPage = () => {
     return <div>Loading...</div>;
   }
 
+  const getDiagnosisDescription = (code: string): string | undefined => {
+    const diagnosis = diagnoses.find((d) => d.code === code);
+    return diagnosis ? diagnosis.name : 'Unknown diagnosis';
+  };
+
   return (
     <Box>
       <Typography variant="h4" component="h2">
@@ -79,7 +89,9 @@ const PatientDetailPage = () => {
               {entry.diagnosisCodes && (
                 <ul>
                   {entry.diagnosisCodes.map((code) => (
-                    <li key={code}>{code}</li>
+                    <li key={code}>
+                      {code}: {getDiagnosisDescription(code)}
+                    </li>
                   ))}
                 </ul>
               )}
