@@ -1,5 +1,9 @@
 import { HealthCheckRating } from './../types';
 
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown
+  ? Omit<T, K>
+  : never;
+
 export interface BasePatientEntry {
   id: string;
   description: string;
@@ -34,3 +38,7 @@ export type PatientEntry =
   | HealthCheckPatientEntry
   | OccupationalHealthcarePatientEntry
   | HospitalPatientEntry;
+
+export type PatientEntryFormValues = UnionOmit<PatientEntry, 'id'>;
+
+export type PatientEntryType = PatientEntry['type'];
