@@ -1,6 +1,10 @@
 import { Diagnosis } from './Diagnosis';
 import { HealthCheckRating } from './HealthCheckRating';
 
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown
+  ? Omit<T, K>
+  : never;
+
 interface BasePatientEntry {
   id: string;
   description: string;
@@ -35,3 +39,5 @@ export type PatientEntry =
   | HealthCheckPatientEntry
   | OccupationalHealthcarePatientEntry
   | HospitalPatientEntry;
+
+export type NewPatientEntry = UnionOmit<PatientEntry, 'id'>;

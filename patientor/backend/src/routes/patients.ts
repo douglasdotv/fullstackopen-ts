@@ -1,8 +1,10 @@
 import express, { Request, Response } from 'express';
 import patientService from '../services/patientService';
 import { newPatientParser } from '../middleware/newPatientParser';
+import { newPatientEntryParser } from '../middleware/newPatientEntryParser';
 import { errorHandler } from '../middleware/errorHandler';
 import { Patient, NewPatient, NonSensitivePatient } from '../types/Patient';
+import { PatientEntry, NewPatientEntry } from '../types/PatientEntry';
 import { ErrorResponse } from '../types/ErrorResponse';
 
 const router = express.Router();
@@ -31,6 +33,22 @@ router.post(
     const newPatient = req.body;
     const addedPatient = patientService.addPatient(newPatient);
     res.json(addedPatient);
+  },
+);
+
+router.post(
+  '/:id/entries',
+  newPatientEntryParser,
+  (
+    req: Request<{ id: string }, unknown, NewPatientEntry>,
+    res: Response<PatientEntry>,
+  ) => {
+    const newPatientEntry = req.body;
+    const addedPatientEntry = patientService.addPatientEntry(
+      req.params.id,
+      newPatientEntry,
+    );
+    res.json(addedPatientEntry);
   },
 );
 
